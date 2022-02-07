@@ -1,14 +1,14 @@
 package fioutil
 
 import (
-	"fmt"
 	"io/ioutil"
+	"log"
 )
 
 func ReadFileToString(filename string) string {
 	content, err := ioutil.ReadFile(filename)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalln(err)
 	}
 	return string(content)
 }

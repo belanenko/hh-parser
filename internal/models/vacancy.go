@@ -1,45 +1,45 @@
 package models
 
-import "time"
-
 type Vacancy struct {
-	Context            string    `json:"@context"`
-	Type               string    `json:"@type"`
-	Description        string    `json:"description"`
-	DatePosted         time.Time `json:"datePosted"`
-	Title              string    `json:"title"`
-	HiringOrganization struct {
-		Type string `json:"@type"`
-		Name string `json:"name"`
-		Logo string `json:"logo"`
-	} `json:"hiringOrganization"`
-	ValidThrough time.Time `json:"validThrough"`
-	JobLocation  struct {
-		Type    string `json:"@type"`
-		Address struct {
-			Type            string `json:"@type"`
-			AddressLocality string `json:"addressLocality"`
-			AddressRegion   string `json:"addressRegion"`
-			AddressCountry  string `json:"addressCountry"`
-			StreetAddress   string `json:"streetAddress"`
-		} `json:"address"`
-	} `json:"jobLocation"`
-	JobLocationType string   `json:"jobLocationType"`
-	EmploymentType  string   `json:"employmentType"`
-	Industry        []string `json:"industry"`
-	BaseSalary      struct {
-		Type     string `json:"@type"`
-		Currency string `json:"currency"`
-		Value    struct {
-			Type     string `json:"@type"`
-			UnitText string `json:"unitText"`
-			MinValue int    `json:"minValue"`
-			MaxValue int    `json:"maxValue"`
-		} `json:"value"`
-	} `json:"baseSalary"`
-	Identifier struct {
-		Type  string `json:"@type"`
-		Name  string `json:"name"`
-		Value int    `json:"value"`
-	} `json:"identifier"`
+	Description        string             `json:"description"`
+	DatePosted         string             `json:"datePosted"`
+	Title              string             `json:"title"`
+	HiringOrganization HiringOrganization `json:"hiringOrganization"`
+	ValidThrough       string             `json:"validThrough"`
+	JobLocation        JobLocation        `json:"jobLocation"`
+	EmploymentType     string             `json:"employmentType"`
+	Industry           []string           `json:"industry"`
+	BaseSalary         BaseSalary         `json:"baseSalary"`
+	Identifier         Identifier         `json:"identifier"`
+}
+
+type BaseSalary struct {
+	Currency string `json:"currency"`
+	Value    Value  `json:"value"`
+}
+
+type Value struct {
+	UnitText string `json:"unitText"`
+	MinValue int64  `json:"minValue"`
+	MaxValue int64  `json:"manValue"`
+}
+
+type HiringOrganization struct {
+	Name string `json:"name"`
+	Logo string `json:"logo"`
+}
+
+type Identifier struct {
+	Name  string `json:"name"`
+	Value int64  `json:"value"`
+}
+
+type JobLocation struct {
+	Address Address `json:"address"`
+}
+
+type Address struct {
+	AddressLocality string `json:"addressLocality"`
+	AddressRegion   string `json:"addressRegion"`
+	AddressCountry  string `json:"addressCountry"`
 }
