@@ -1,0 +1,9 @@
+{
+    "host": "https://rc1a-lwh1aqqz9v7110od.mdb.yandexcloud.net:8443/",
+    "certPath": "/usr/local/share/ca-certificates/Yandex/YandexInternalRootCA.crt",
+    "dbName": "hh1",
+    "user": {
+        "name": "admin",
+        "password": "G@rdonK2"
+    }
+}
