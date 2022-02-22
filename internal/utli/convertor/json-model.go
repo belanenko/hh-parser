@@ -6,6 +6,6 @@ import (
 	"github.com/hh-parser/internal/models/vacancy"
 )
 
-func JsonToHTML(jsonStr string, vacancy *vacancy.Vacancy) error {
+func JsonToModel(jsonStr string, vacancy *vacancy.Vacancy) error {
 	return json.Unmarshal([]byte(jsonStr), vacancy)
 }
