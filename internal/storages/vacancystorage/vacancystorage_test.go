@@ -64,3 +64,19 @@ func TestPushCount(t *testing.T) {
 
 	Storage = &storage{}
 }
+
+func TestLen(t *testing.T) {
+	vacancies := []vacancy.Vacancy{
+		{},
+		{},
+		{},
+		{},
+	}
+
+	this_storage := Storage
+	this_storage.vacancies = append(this_storage.vacancies, vacancies...)
+
+	assert.Len(t, this_storage.vacancies, this_storage.Len())
+
+	Storage = &storage{}
+}

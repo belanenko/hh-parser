@@ -17,6 +17,12 @@ type storage struct {
 
 var Storage *storage
 
+func (s *storage) Len() int {
+	s.m.Lock()
+	defer s.m.Unlock()
+	return len(s.vacancies)
+}
+
 func (s *storage) Pop(vacancies ...vacancy.Vacancy) {
 	s.m.Lock()
 	defer s.m.Unlock()
