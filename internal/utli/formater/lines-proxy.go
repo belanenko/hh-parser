@@ -13,7 +13,7 @@ func StringToProxy(schema proxy.Schema, strProxy ...string) []proxy.Proxy {
 		data := strings.Split(p, ":")
 		host := data[0]
 		port, _ := strconv.Atoi(data[1])
-		username := data[3]
+		username := data[2]
 		password := data[3]
 
 		out[i] = proxy.Proxy{
