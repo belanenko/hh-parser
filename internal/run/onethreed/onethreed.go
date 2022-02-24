@@ -4,28 +4,13 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/hh-parser/internal/models/proxy"
 	"github.com/hh-parser/internal/models/vacancy"
 	"github.com/hh-parser/internal/requests/hh"
-	"github.com/hh-parser/internal/storages/proxystorage"
-	"github.com/hh-parser/internal/storages/vacancystorage"
+	"github.com/hh-parser/internal/storages/interfaces"
 )
 
-func Run(startIndex, countPages int) {
-	this_proxyStorage := proxystorage.GetStorage()
-	this_proxyStorage.Add(
-		proxy.Proxy{
-			Schema: proxy.HTTP,
-			Host:   "p.webshare.io",
-			Port:   80,
-			UserInfo: proxy.UserInfo{
-				Username: "untrxaih-rotate",
-				Password: "kmff7s4ojnto",
-			},
-		},
-	)
+func RunOneThreed(startIndex, countPages int, vs interfaces.VacancyStorage, ps interfaces.ProxyStorage) {
 
-	this_vacancystorage := vacancystorage.Storage
 	baseUrl := `https://hh.ru/vacancy/`
 
 	stopIndex := startIndex + countPages
@@ -33,7 +18,7 @@ func Run(startIndex, countPages int) {
 	for thisIndex := startIndex; thisIndex < stopIndex; thisIndex++ {
 		var newVacancy vacancy.Vacancy
 		this_url := fmt.Sprintf("%s%d", baseUrl, thisIndex)
-		statuscode, err := hh.GetVacancy(this_url, this_proxyStorage.GetFormatedProxy(), &newVacancy)
+		statuscode, err := hh.GetVacancy(this_url, ps.GetFormatedProxy(), &newVacancy)
 		if err != nil {
 			log.Println(err)
 			continue
@@ -43,7 +28,7 @@ func Run(startIndex, countPages int) {
 			continue
 		}
 
-		this_vacancystorage.Pop(newVacancy)
+		vs.Pop(newVacancy)
 	}
 
 }
