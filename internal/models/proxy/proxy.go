@@ -1,14 +1,14 @@
 package proxy
 
-type schema string
+type Schema string
 
 const (
-	HTTP   schema = "http"
-	SOCKS5 schema = "socks5"
+	HTTP   Schema = "http"
+	SOCKS5 Schema = "socks5"
 )
 
 type Proxy struct {
-	Schema schema
+	Schema Schema
 	Host   string
 	Port   int32
 	UserInfo
