@@ -44,3 +44,9 @@ func (s *storage) PushCount(count uint) []vacancy.Vacancy {
 	s.vacancies = s.vacancies[count:]
 	return this_vacancies
 }
+
+func (s *storage) Len() int {
+	s.m.Lock()
+	defer s.m.Unlock()
+	return len(s.vacancies)
+}
