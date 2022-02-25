@@ -13,13 +13,12 @@ import (
 	"github.com/hh-parser/internal/storages/vacancystorage"
 	"github.com/hh-parser/internal/utli/filereader"
 	"github.com/hh-parser/internal/utli/formater"
+	"github.com/hh-parser/pkg/flags"
 )
 
 func main() {
-	numGorutines := flag.Int("threads", 1, "count of threads")
-	proxyFilePath := flag.String("pfp", "", "proxy file path")
-	indexStart := flag.Int("startid", 0, "Start parsing index")
-	indexCount := flag.Int("countid", 1, "Count vacancy to parsing")
+	var numGorutines, proxyFilePath, indexStart, indexCount = flags.Set()
+
 	flag.Parse()
 
 	this_proxyStorage := proxystorage.GetStorage()
