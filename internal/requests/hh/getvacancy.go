@@ -2,12 +2,15 @@ package hh
 
 import (
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 
 	"github.com/hh-parser/internal/models/vacancy"
 	"github.com/hh-parser/internal/utli/convertor"
 	"github.com/hh-parser/internal/utli/jsonparser"
+
+	browser "github.com/EDDYCJY/fake-useragent"
 )
 
 func GetVacancy(strUrl string, strProxy string, emptyVacancy *vacancy.Vacancy) (int, error) {
@@ -21,7 +24,13 @@ func GetVacancy(strUrl string, strProxy string, emptyVacancy *vacancy.Vacancy) (
 		},
 	}
 
-	resp, err := client.Get(strUrl)
+	req, err := http.NewRequest("GET", strUrl, nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	req.Header.Set("User-Agent", browser.Computer())
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return 1, err
 	}
