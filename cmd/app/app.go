@@ -17,10 +17,13 @@ import (
 
 func main() {
 	numGorutines := flag.Int("t", 1, "count of threads")
+	proxyFilePath := flag.String("pfp", "", "proxy file path")
+	indexStart := flag.Int("is", 0, "Start parsing index")
+	indexCount := flag.Int("ic", 1, "Count vacancy to parsing")
 	flag.Parse()
 
 	this_proxyStorage := proxystorage.GetStorage()
-	strProxies := filereader.ReadAllLines("/home/tim/code/github.com/belanenko/hh-parser/assets/socks5.txt")
+	strProxies := filereader.ReadAllLines(*proxyFilePath)
 
 	for _, p := range strProxies {
 		if p == "" {
@@ -35,7 +38,7 @@ func main() {
 	var wg sync.WaitGroup
 	var done bool
 	wg.Add(1)
-	go multithreadasync.Run(50000000, 5000, this_vacancystorage, this_proxyStorage, *numGorutines, wg, &done)
+	go multithreadasync.Run(*indexStart, *indexCount, this_vacancystorage, this_proxyStorage, *numGorutines, wg, &done)
 	fmt.Println(this_vacancystorage.Len())
 
 	for {
