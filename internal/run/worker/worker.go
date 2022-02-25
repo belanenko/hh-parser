@@ -1,4 +1,4 @@
-package multithreadasync
+package worker
 
 import (
 	"fmt"

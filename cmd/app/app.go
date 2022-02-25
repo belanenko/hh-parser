@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/hh-parser/internal/models/proxy"
-	"github.com/hh-parser/internal/run/multithreadasync"
+	worker "github.com/hh-parser/internal/run/worker"
 	"github.com/hh-parser/internal/storages/proxystorage"
 	"github.com/hh-parser/internal/storages/vacancystorage"
 	"github.com/hh-parser/internal/utli/filereader"
@@ -16,10 +16,10 @@ import (
 )
 
 func main() {
-	numGorutines := flag.Int("t", 1, "count of threads")
+	numGorutines := flag.Int("threads", 1, "count of threads")
 	proxyFilePath := flag.String("pfp", "", "proxy file path")
-	indexStart := flag.Int("is", 0, "Start parsing index")
-	indexCount := flag.Int("ic", 1, "Count vacancy to parsing")
+	indexStart := flag.Int("startid", 0, "Start parsing index")
+	indexCount := flag.Int("countid", 1, "Count vacancy to parsing")
 	flag.Parse()
 
 	this_proxyStorage := proxystorage.GetStorage()
@@ -38,7 +38,7 @@ func main() {
 	var wg sync.WaitGroup
 	var done bool
 	wg.Add(1)
-	go multithreadasync.Run(*indexStart, *indexCount, this_vacancystorage, this_proxyStorage, *numGorutines, wg, &done)
+	go worker.Run(*indexStart, *indexCount, this_vacancystorage, this_proxyStorage, *numGorutines, wg, &done)
 	fmt.Println(this_vacancystorage.Len())
 
 	for {
