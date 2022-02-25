@@ -14,17 +14,3 @@
 ### Example flags: 
 > `./app.go --threads 5 --pfp=/home/tim/code/github.com/belanenko/hh-parser/assets/socks5.txt --startid=500000 --countid=1000`
 
----
-
-## Config file params   
-
-### for clickhouse 
-
-1. `DB_NAME`
-2. `DB_HOST`<br/>Example: `DB_HOST=https://rc1a-awh1aqqz9v7110od.mdb.yandexcloud.net:8080/`
-3. `DB_CERT_PATH` <br/>Example: `DB_CERT_PATH=/usr/local/share/ca-certificates/Yandex/YandexInternalRootCA.crt`
-4. `DB_USERNAME`
-5. `DB_PASSWORD`
-
----
-
