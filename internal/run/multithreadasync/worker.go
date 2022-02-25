@@ -43,7 +43,7 @@ func worker(wg *sync.WaitGroup, urls chan string, vs interfaces.VacancyStorage, 
 			continue
 		}
 		if statusCode != 200 {
-			log.Printf("status code is not 200, code: %d", statusCode)
+			log.Printf("| StatusCode:%d\t| %s", statusCode, url)
 			continue
 		}
 
