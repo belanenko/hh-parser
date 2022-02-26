@@ -4,13 +4,26 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"io/ioutil"
+	"log"
 	"net/http"
 
+	"github.com/hh-parser/internal/models/vacancy"
 	"github.com/hh-parser/pkg/dbclick/clickconfig"
 )
 
-func Ping(config *clickconfig.Config) string {
-	return Send(config, "SHOW TABLES FROM hh1;")
+func Ping(config *clickconfig.Config) {
+	answ := Send(config, "SHOW TABLES FROM hh1;")
+	if answ != "row_data\n" {
+		log.Fatalln("db not table row_data")
+	}
+	log.Println("db pinged")
+}
+
+func Batch(config *clickconfig.Config, vacancies []vacancy.Vacancy) {
+	// for _, v := range vacancies {
+
+	// }
+	panic("not implimented")
 }
 
 func Send(config *clickconfig.Config, request string) string {

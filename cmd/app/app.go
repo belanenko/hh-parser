@@ -10,11 +10,16 @@ import (
 	worker "github.com/hh-parser/internal/run/worker"
 	"github.com/hh-parser/internal/storages/proxystorage"
 	"github.com/hh-parser/internal/storages/vacancystorage"
+	"github.com/hh-parser/pkg/dbclick"
+	"github.com/hh-parser/pkg/dbclick/clickconfig"
 	"github.com/hh-parser/pkg/flags"
 )
 
 func main() {
 	flagsConf := flags.Set()
+
+	clickConfig := clickconfig.ReadConfig(flagsConf.ClickConfigPath)
+	dbclick.Ping(clickConfig)
 
 	this_proxyStorage := proxystorage.GetStorage()
 	this_proxyStorage.AddFromFile(flagsConf.ProxyFilePath, proxy.SOCKS5)
