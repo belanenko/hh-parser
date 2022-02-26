@@ -56,3 +56,4 @@ go.work
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,go,dotenv
 *.txt
 cmd/app-multi-thread-async/__debug_bin
+app
