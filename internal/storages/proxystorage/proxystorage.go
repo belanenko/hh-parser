@@ -7,6 +7,8 @@ import (
 	"sync"
 
 	"github.com/hh-parser/internal/models/proxy"
+	"github.com/hh-parser/internal/utli/filereader"
+	"github.com/hh-parser/internal/utli/formater"
 )
 
 func init() {
@@ -36,6 +38,17 @@ func (s *storage) Add(proxies ...proxy.Proxy) {
 	}
 
 	Storage.Proxies = append(Storage.Proxies, proxies...)
+}
+
+func (s *storage) AddFromFile(path string, schema proxy.Schema) {
+	strProxies := filereader.ReadAllLines(path)
+
+	for _, p := range strProxies {
+		if p == "" {
+			continue
+		}
+		s.Add(formater.StringToProxy(proxy.SOCKS5, p)...)
+	}
 }
 
 func (s *storage) GetProxy() proxy.Proxy {
