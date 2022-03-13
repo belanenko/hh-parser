@@ -1,6 +1,7 @@
 package vacancystorage
 
 import (
+	"strings"
 	"sync"
 
 	"github.com/hh-parser/internal/models/vacancy"
@@ -21,15 +22,16 @@ func (s *storage) Pop(vacancies ...vacancy.Vacancy) {
 	s.m.Lock()
 	defer s.m.Unlock()
 	for _, v := range vacancies {
-		if !s.vacancyValidate(v) {
+		if !s.vacancyValidate(&v) {
 			continue
 		}
 		s.vacancies = append(s.vacancies, v)
 	}
 }
 
-func (s *storage) vacancyValidate(v vacancy.Vacancy) bool {
+func (s *storage) vacancyValidate(v *vacancy.Vacancy) bool {
 	// TODO: Impliment validation logic
+	v.Description = strings.Replace(v.Description, "'", "''", -1)
 	return true
 }
 
